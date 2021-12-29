@@ -6,7 +6,7 @@ import AddTask from './components/AddTask'
 
 function App() {
 
-  
+  const [showAddTask, setShowAddTask] = useState(false)
 
   const [tasks, setTasks] = useState([
     {
@@ -29,6 +29,10 @@ function App() {
     },
 ])
 
+  //Toggle Button
+  const toggleButton = () => {
+    setShowAddTask(!showAddTask)
+  }
 
   //Add task
   const addTask = (task) => {
@@ -49,8 +53,8 @@ function App() {
 
   return (
     <div className="container">
-      <Header title='Task Tracker' />
-      <AddTask  onAdd={addTask}/>
+      <Header title='Task Tracker' onClick={toggleButton} showAdd={showAddTask}/>
+      {showAddTask && <AddTask  onAdd={addTask}/>}
       {tasks.length > 0 ?
       <Tasks  tasks={tasks}  onDelete={deleteTask} onToggle={toggleReminder}/>
       : 'No Tasks Found'}
